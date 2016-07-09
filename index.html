@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Intro to React</title>
+  <meta charset="utf-8">
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react/15.2.0/react.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react/15.2.0/react-dom.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/redux/3.5.2/redux.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react-redux/4.4.5/react-redux.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
+    <style>
+    .user-profile {
+      width: 200px;
+      padding: 3px;
+      border: solid black thin;
+    }
+    .user-profile img {
+      width: 48px;
+      height: 48px;
+      border-radius: 24px;
+      border: thin black solid;
+    }
+    .user-profile .details {
+      display: inline-block;
+      vertical-align: top;
+      margin-left: 10px;
+      margin-top: 5px;
+    }
+    .user-profile .color {
+      margin-top: 3px;
+      border-bottom: 2px solid blue;
+    }
+    .user-profile .first-name:after {
+      content: " "
+    }
+    </style>
+</head>
+<body>
+  <div id="root"></div>  
+  <div id="app"></div>
+  <div id="app2"></div>
+  <div id="app3"></div>
+<script type="text/babel">
+  var UserProfile = function() {
+  return (
+    <div className='user-profile'>
+      <img src="https://randomuser.me/api/portraits/med/lego/1.jpg" />
+      <div className='details'>
+        <div className='name'>
+          <span className="first-name">Shana</span>
+          <span className="last-name">Moore</span>
+        </div>
+        <div className='color'>Color: blue</div>
+      </div>
+    </div>
+  );
+};
+
+var WelcomeText = function(props){
+  return (
+   <p>Welcome to the class, {props.name}!</p>
+  );
+};
+
+var WelcomeIndividual = function(props) {
+    return (<li>Hi there {props.name}</li>);
+};
+
+var WelcomeList = function(props) {
+  var names = props.names;
+
+  // convert prop 'names' array to components using
+  // Array.map to generate a new array of WelcomeIndividual components
+  var listItems = names.map(function(item, index) {
+    return <WelcomeIndividual key={index} name={item} />
+  });
+
+  return (
+    <ul>
+      {listItems} {/* The array is expanded here */}
+    </ul>
+  );
+};
+
+var nameArray = ['Moore', 'Shana', 'Lavina'];
+
+var Profile = function(props) {
+  return (
+    <div className='user-profile'>
+      <img src="https://randomuser.me/api/portraits/med/lego/1.jpg" />
+      <div className='details'>
+        <div className='name'>
+          <span className="first-name">{props.firstName}</span>
+          <span className="last-name">{props.lastName}</span>
+        </div>
+        <div className='color'>grey</div>
+      </div>
+    </div>
+  );
+};
+
+var profile = {
+  firstName: "Alex",
+  lastName: "Colbert"
+};
+
+ReactDOM.render(
+  <Profile {...profile} />,
+  document.getElementById('root')
+);
+
+
+ReactDOM.render(
+  <WelcomeText name={'SHANA!'} />
+, document.getElementById('app')
+);
+
+ReactDOM.render(
+  <UserProfile  />
+, document.getElementById('app2')
+);
+
+ReactDOM.render(
+  <WelcomeList names={nameArray} />,
+  document.getElementById('app3')
+);
+  </script>
+</body>
+</html>
